@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/maple_AI/static/css/main.0bbd327b.css",
+    "main.js": "/maple_AI/static/js/main.dfd98190.js",
+    "static/js/453.8cf533ef.chunk.js": "/maple_AI/static/js/453.8cf533ef.chunk.js",
+    "index.html": "/maple_AI/index.html",
+    "main.0bbd327b.css.map": "/maple_AI/static/css/main.0bbd327b.css.map",
+    "main.dfd98190.js.map": "/maple_AI/static/js/main.dfd98190.js.map",
+    "453.8cf533ef.chunk.js.map": "/maple_AI/static/js/453.8cf533ef.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0bbd327b.css",
+    "static/js/main.dfd98190.js"
+  ]
+}
