@@ -25,9 +25,11 @@ function App() {
       },
     ],
   });
+  const [level, setLevel] = useState(null);
   const videoRef = useRef(null);
   const captureCanvasRef = useRef(null);
   const initialValueRef = useRef(null);
+  const initialLevelRef = useRef(null);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
 
   const resultChartOptions = createChartOptions(initialValueRef);
@@ -42,6 +44,8 @@ function App() {
     setStartTime,
     setCurrentTime,
     initialValueRef,
+    setLevel,
+    initialLevelRef,
   });
 
   const startScreenCapture = async () => {
@@ -126,6 +130,8 @@ function App() {
             latestValue={latestValue}
             currentTime={currentTime}
             initialValueRef={initialValueRef}
+            level={level}
+            initialLevelRef={initialLevelRef}
           />
         </main>
       </div>

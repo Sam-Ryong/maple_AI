@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { maxExpConf } from "../utils/maxExpConf";
+import { color } from "chart.js/helpers";
 
 const ResultDisplay = ({
   modeValue,
@@ -6,6 +8,8 @@ const ResultDisplay = ({
   latestValue,
   currentTime,
   initialValueRef,
+  level,
+  initialLevelRef,
 }) => {
   // 알림을 추적하기 위한 ref
   const notificationRef = useRef(null);
@@ -48,23 +52,144 @@ const ResultDisplay = ({
   }, []);
 
   return (
-    <div>
-      <div>
-        <strong>시작 경험치: </strong>
-        {modeValue !== null && typeof latestValue === "number"
-          ? modeValue.toLocaleString()
-          : ""}{" "}
-        ({startTime})
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: "20px",
+        width: "100%",
+        marginTop: "20px",
+      }}
+    >
+      {/* Left Card: Start Info */}
+      <div
+        style={{
+          flex: 1,
+          padding: "20px",
+          border: "1px solid #ddd",
+          borderRadius: "10px",
+          backgroundColor: "#333",
+          textAlign: "center",
+        }}
+      >
+        <div>{startTime} 시작</div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>
+          LV. {level && initialLevelRef.current ? initialLevelRef.current : ""}
+        </div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>
+          {modeValue !== null && typeof latestValue === "number"
+            ? modeValue.toLocaleString()
+            : ""}{" "}
+          EXP
+        </div>
       </div>
-      <div>
-        <strong>현재 경험치: </strong>
-        {latestValue !== null && typeof latestValue === "number"
-          ? latestValue.toLocaleString()
-          : ""}{" "}
-        ({currentTime}){" "}
-        {latestValue && initialValueRef.current
-          ? `(+${(latestValue - initialValueRef.current).toLocaleString()})`
-          : ""}
+
+      {/* Center Card: Change Info */}
+      <div
+        style={{
+          flex: 1,
+          padding: "20px",
+          border: "1px solid #ddd",
+          borderRadius: "10px",
+          backgroundColor: "#333",
+          textAlign: "center",
+        }}
+      >
+        <div>{currentTime - startTime}</div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>
+          {level && initialLevelRef.current
+            ? `+${(level - initialLevelRef.current).toLocaleString()} LV`
+            : "+ LV"}
+        </div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>
+          {maxExpConf(level) != null &&
+          maxExpConf(initialLevelRef.current) != null
+            ? `+${(
+                maxExpConf(level) -
+                maxExpConf(initialLevelRef.current) +
+                latestValue -
+                initialValueRef.current
+              ).toLocaleString()} EXP`
+            : latestValue && initialValueRef.current
+            ? `+${(latestValue - initialValueRef.current).toLocaleString()} EXP`
+            : "+ EXP"}
+        </div>
+      </div>
+
+      {/* Right Card: Current Info */}
+      <div
+        style={{
+          flex: 1,
+          padding: "20px",
+          border: "1px solid #ddd",
+          borderRadius: "10px",
+          backgroundColor: "#333",
+          textAlign: "center",
+        }}
+      >
+        <div>{currentTime}</div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>LV. {level}</div>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#aaa",
+            borderTop: "1px solid #555",
+            marginTop: "10px",
+            marginBottom: "10px",
+          }}
+        ></div>
+        <div>
+          {latestValue !== null && typeof latestValue === "number"
+            ? latestValue.toLocaleString()
+            : ""}{" "}
+          EXP
+        </div>
       </div>
     </div>
   );
